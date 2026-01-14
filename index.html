@@ -150,10 +150,24 @@
       background: transparent;
       border:1px solid var(--border2);
     }
-    .btn.sm{
-      padding: 10px 12px;
-      border-radius: 16px;
-      font-size: 13px;
+
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--border1);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-weight:700;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+      user-select:none;
+    }
+    .chip:hover{background: rgba(255,255,255,.07); border-color: var(--border2); transform: translateY(-1px)}
+    .chip.active{
+      color:#06101a;
+      border:none;
+      background: linear-gradient(135deg, rgba(0,229,255,.90), rgba(255,60,255,.78));
     }
 
     .kbd{
@@ -235,6 +249,7 @@
         drop-shadow(0 0 24px rgba(255,60,255,.20))
         drop-shadow(0 0 20px rgba(185,124,255,.14));
     }
+
     @media (min-width: 981px){
       .brand img{ width:56px; height:56px; }
     }
@@ -275,25 +290,9 @@
     .top-cta{
       display:flex; align-items:center; gap:10px;
       justify-content:flex-end;
-      min-width: 300px;
-      flex: 1 1 300px;
-      flex-wrap: wrap;
+      min-width: 260px;
+      flex: 1 1 260px;
     }
-    .icon-btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      width: 44px; height: 44px;
-      border-radius: 16px;
-      border: 1px solid var(--border1);
-      background: rgba(255,255,255,.05);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-    }
-    .icon-btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.08);
-      border-color: var(--border2);
-      box-shadow: var(--shadow2);
-    }
-    .icon-btn svg{opacity:.95}
 
     .hero{
       position: relative;
@@ -594,34 +593,7 @@
       flex-wrap:wrap;
       margin: 10px 0 14px;
     }
-
-    .chips{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .chip{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--border1);
-      background: rgba(255,255,255,.05);
-      color: var(--muted);
-      font-weight:800;
-      cursor:pointer;
-      transition: background .15s ease, border-color .15s ease, transform .15s ease;
-      user-select:none;
-      white-space: nowrap;
-    }
-    .chip svg{opacity:.95}
-    .chip:hover{background: rgba(255,255,255,.07); border-color: var(--border2); transform: translateY(-1px)}
-    .chip.active{
-      color:#06101a;
-      border:none;
-      background: linear-gradient(135deg, rgba(0,229,255,.90), rgba(255,60,255,.78));
-    }
-
+    .chips{display:flex; gap:10px; flex-wrap:wrap;}
     .search{
       display:flex; gap:10px; align-items:center;
       flex: 1;
@@ -655,6 +627,8 @@
     .work{
       border-radius: 22px;
       padding: 2px;
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
       box-shadow: var(--shadow2);
       background:
         radial-gradient(280px 160px at 25% 15%, rgba(0,229,255,.22), transparent 62%),
@@ -662,7 +636,6 @@
         rgba(255,255,255,.02);
       overflow: visible;
       height: 100%;
-      transition: transform .15s ease, filter .15s ease;
     }
     .work:hover{transform: translateY(-2px);}
 
@@ -670,7 +643,7 @@
       border-radius: 20px;
       border: 1px solid var(--border1);
       background: rgba(255,255,255,.03);
-      overflow: hidden;
+      overflow: visible;
       display:flex;
       flex-direction:column;
       min-height: 100%;
@@ -699,6 +672,7 @@
       justify-content:center;
       padding: 10px;
       flex: 0 0 auto;
+      position: relative;
     }
     @media (prefers-color-scheme: light){
       .work .thumb{
@@ -706,25 +680,50 @@
         border: 1px solid rgba(11,16,32,.10);
       }
     }
+
     .work img{
       width:100%;
       height:100%;
       object-fit: contain;
       display:block;
+      border-radius: 0;
       background: transparent;
       border: none;
     }
 
+    /* ===== ICONOS SOBRE LA TARJETA (como vos querías) ===== */
+    .badge-icons{
+      position:absolute;
+      left: 10px;
+      top: 10px;
+      display:flex;
+      gap: 8px;
+      z-index: 2;
+      align-items:center;
+    }
+    .bicon{
+      width: 32px; height: 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(7,10,18,.55);
+      backdrop-filter: blur(8px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+    .bicon svg{opacity:.96}
+
     .work .meta{
-      padding: 14px 14px 14px;
+      padding: 14px 14px 16px;
       flex: 1 1 auto;
       display:flex;
       flex-direction:column;
-      gap: 10px;
     }
     .work .topline{
       display:flex; align-items:center; justify-content:space-between;
       gap: 10px;
+      margin-bottom: 8px;
       flex: 0 0 auto;
     }
     .tag{
@@ -742,13 +741,13 @@
       letter-spacing:.2px;
       font-size: 13px;
       color: var(--text);
+      margin: 2px 0 6px;
       font-family:Sora, Poppins, sans-serif;
 
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      margin-top: -2px;
     }
     .work .short{
       color: var(--muted);
@@ -760,138 +759,14 @@
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
-
-      min-height: calc(12.6px * 1.45 * 3);
-    }
-    .work .actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
       margin-top: auto;
-    }
-    .work .actions .btn{
-      flex: 1 1 auto;
-      min-width: 130px;
+      min-height: calc(12.6px * 1.45 * 3);
     }
 
     .portfolio-footer{
       display:flex;
       justify-content:center;
       margin-top: 18px;
-    }
-
-    .price{position: relative; overflow:hidden;}
-    .price .ribbon{
-      position:absolute;
-      top: 14px; right:-40px;
-      transform: rotate(35deg);
-      background: linear-gradient(135deg, rgba(0,229,255,.95), rgba(255,60,255,.85));
-      color:#06101a;
-      padding: 8px 60px;
-      font-weight: 900;
-      font-size: 11px;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-      box-shadow: 0 18px 50px rgba(0,0,0,.25);
-    }
-    .price .list{
-      margin: 12px 0 0;
-      padding: 0;
-      list-style:none;
-      display:grid;
-      gap: 10px;
-    }
-    .price .list li{
-      display:flex; gap:10px; align-items:flex-start;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.45;
-      font-weight:500;
-    }
-    .check{
-      width: 18px; height: 18px; flex:0 0 18px;
-      border-radius: 999px;
-      background: rgba(61,255,183,.18);
-      border: 1px solid rgba(61,255,183,.30);
-      display:flex; align-items:center; justify-content:center;
-      margin-top: 1px;
-    }
-    .check svg{opacity:.95}
-
-    .plans-cta{
-      display:flex;
-      justify-content:center;
-      margin-top: 18px;
-    }
-    .plans-cta .btn{min-width: 260px;}
-
-    .contact{display:grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items:start;}
-    .form{padding: 18px;}
-    .form .fields{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;}
-    .form .fields .full{grid-column: 1 / -1;}
-
-    label{
-      display:block;
-      font-weight:800;
-      font-size: 12px;
-      color: var(--muted2);
-      margin-bottom: 6px;
-      letter-spacing:.2px;
-      text-transform: uppercase;
-    }
-
-    input, textarea, select{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--border1);
-      background: var(--surface1);
-      color: var(--text);
-      outline: none;
-      transition: border-color .15s ease, background .15s ease;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight:600;
-    }
-    textarea{min-height: 110px; resize: vertical; font-weight:600;}
-    input:focus, textarea:focus, select:focus{
-      border-color: rgba(0,229,255,.45);
-      background: var(--surface2);
-    }
-
-    select{
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding-right: 42px;
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(255,255,255,.85) 50%),
-        linear-gradient(135deg, rgba(255,255,255,.85) 50%, transparent 50%);
-      background-position:
-        calc(100% - 18px) calc(1em + 2px),
-        calc(100% - 13px) calc(1em + 2px);
-      background-size: 5px 5px, 5px 5px;
-      background-repeat: no-repeat;
-      color-scheme: dark light;
-    }
-    @media (prefers-color-scheme: light){
-      select{
-        background-image:
-          linear-gradient(45deg, transparent 50%, rgba(11,16,32,.70) 50%),
-          linear-gradient(135deg, rgba(11,16,32,.70) 50%, transparent 50%);
-      }
-    }
-    select option{
-      background: var(--bg2);
-      color: var(--text);
-    }
-
-    .helper{
-      margin-top: 10px;
-      color: var(--muted2);
-      font-size: 12.5px;
-      line-height: 1.5;
-      font-weight:600;
     }
 
     footer{
@@ -938,16 +813,7 @@
       border-color: var(--border2);
     }
 
-    .creator{
-      margin-top: 10px;
-      font-weight: 900;
-      color: var(--text);
-    }
-    .creator a{
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
+    /* WhatsApp flotante */
     .wa-float{
       position: fixed;
       right: 16px;
@@ -1003,7 +869,6 @@
       .work-grid{grid-template-columns: repeat(3, 1fr);}
       .grid3{grid-template-columns: 1fr;}
       .grid2{grid-template-columns: 1fr;}
-      .contact{grid-template-columns: 1fr;}
       .wa-pill{display:inline-flex;}
     }
 
@@ -1020,15 +885,21 @@
         border-radius: 24px;
         padding: 3px;
       }
-      .work-inner{border-radius: 22px;}
+      .work-inner{
+        border-radius: 22px;
+      }
       .work .thumb{
         margin: 12px 12px 0;
         border-radius: 18px;
         aspect-ratio: 4 / 3;
         padding: 6px;
       }
-      .work .meta{padding: 16px 16px 18px;}
-      .work .title{font-size: 14px;}
+      .work .meta{
+        padding: 16px 16px 18px;
+      }
+      .work .title{
+        font-size: 14px;
+      }
       .work .short{
         font-size: 13px;
         -webkit-line-clamp: 3;
@@ -1068,13 +939,6 @@
         </nav>
 
         <div class="top-cta">
-          <a class="icon-btn" href="https://instagram.com/ciborg347" target="_blank" rel="noopener" aria-label="Instagram @ciborg347">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="rgba(255,255,255,.55)" stroke-width="1.7"/>
-              <path d="M12 16.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z" stroke="rgba(0,229,255,.9)" stroke-width="1.7"/>
-              <path d="M17.6 6.4h.01" stroke="rgba(255,60,255,.9)" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </a>
           <a class="btn ghost" href="mailto:ciborg347@gmail.com" aria-label="Enviar email a CIBORG 347">Email</a>
           <a class="btn primary" id="btnTopWhatsApp" href="#" rel="noopener" aria-label="Contactar por WhatsApp">WhatsApp</a>
         </div>
@@ -1115,21 +979,21 @@
             </div>
 
             <div class="hero-meta">
-              <span>
+              <span style="display:inline-flex;align-items:center;gap:8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 22s8-4 8-10V7l-8-4-8 4v5c0 6 8 10 8 10Z" stroke="rgba(0,229,255,.9)" stroke-width="1.8"/>
                   <path d="M9.5 12.2 11.3 14l3.9-4.2" stroke="rgba(255,60,255,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 Enfoque en confianza y conversión
               </span>
-              <span>
+              <span style="display:inline-flex;align-items:center;gap:8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 6v6l4 2" stroke="rgba(185,124,255,.95)" stroke-width="1.8" stroke-linecap="round"/>
                   <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="rgba(255,255,255,.25)" stroke-width="1.6"/>
                 </svg>
                 Entrega rápida + guía para publicar
               </span>
-              <span>
+              <span style="display:inline-flex;align-items:center;gap:8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M4 17V7a2 2 0 0 1 2-2h6l2 2h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z" stroke="rgba(61,255,183,.9)" stroke-width="1.8"/>
                   <path d="M8 14h8" stroke="rgba(255,255,255,.35)" stroke-width="1.6" stroke-linecap="round"/>
@@ -1223,8 +1087,8 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>Trabajos reales (portfolio por rubros)</h2>
-            <p>Elegí un rubro y abrí la <b>Ficha Cliente</b> (ideal para compartir como publicidad). También podés abrir la demo real en otra pestaña.</p>
+            <h2>Trabajos reales (demos y proyectos)</h2>
+            <p>Ejemplos por rubro. Tocá cualquier tarjeta para abrir la web completa en una pestaña nueva (no embebido).</p>
           </div>
         </div>
 
@@ -1238,7 +1102,7 @@
         <div class="work-grid" id="workGrid" aria-live="polite"></div>
 
         <div class="portfolio-footer">
-          <button class="btn ghost" id="btnToggleAll" type="button">Ver todos los trabajos</button>
+          <button class="btn ghost" id="btnToggleAll">Ver todos los trabajos</button>
         </div>
       </div>
     </section>
@@ -1307,69 +1171,96 @@
         </div>
 
         <div class="grid3">
-          <div class="card price">
+          <div class="card">
             <div class="pad">
               <h3>Plan Accesible</h3>
               <p>Para arrancar con presencia profesional y captar consultas.</p>
-              <ul class="list">
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Landing con secciones clave + WhatsApp</li>
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Diseño full responsive (celu/compu)</li>
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Listo para publicar y compartir</li>
+              <ul style="margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px;">
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Landing con secciones clave + WhatsApp
+                </li>
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Diseño full responsive (celu/compu)
+                </li>
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Listo para publicar y compartir
+                </li>
               </ul>
             </div>
           </div>
 
-          <div class="card price">
-            <div class="ribbon">Más elegido</div>
+          <div class="card">
             <div class="pad">
               <h3>Plan Crecimiento</h3>
               <p>Para verse marca y convertir mejor.</p>
-              <ul class="list">
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Landing completa + portfolio + secciones estratégicas</li>
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Optimizada para conversión (estructura y CTA)</li>
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Textos claros + secciones de confianza</li>
+              <ul style="margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px;">
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Landing completa + portfolio + secciones estratégicas
+                </li>
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Optimizada para conversión (estructura y CTA)
+                </li>
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Textos claros + secciones de confianza
+                </li>
               </ul>
             </div>
           </div>
 
-          <div class="card price">
+          <div class="card">
             <div class="pad">
               <h3>Plan Marca Pro</h3>
               <p>Para presencia premium (tipo agencia).</p>
-              <ul class="list">
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Web multi-sección (servicios, galería, FAQs, etc.)</li>
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Portfolio por categorías + navegación pro</li>
-                <li><span class="check" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>Máxima personalización visual</li>
+              <ul style="margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px;">
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Web multi-sección (servicios, galería, FAQs, etc.)
+                </li>
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Portfolio por categorías + navegación pro
+                </li>
+                <li style="display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500;">
+                  <span style="width:18px;height:18px;flex:0 0 18px;border-radius:999px;background:rgba(61,255,183,.18);border:1px solid rgba(61,255,183,.30);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="rgba(61,255,183,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Máxima personalización visual
+                </li>
               </ul>
+
+              <div style="margin-top:14px; display:flex; justify-content:center;">
+                <a class="btn primary" id="btnPlanQuote" href="#" rel="noopener">Pedir cotización</a>
+              </div>
+
+              <div style="margin-top:14px; color:var(--muted2); font-size:13px; line-height:1.55; font-weight:700;">
+                <b>Importante:</b> el valor final se define según tu emprendimiento para que sea <b>accesible</b>. Siempre <b>pago único</b>.
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="plans-cta">
-          <a class="btn primary" id="btnPlanQuote" href="#" rel="noopener">Pedir cotización</a>
-        </div>
-
-        <div style="margin-top:14px; color:var(--muted2); font-size:13px; line-height:1.55; font-weight:700;">
-          <b>Importante:</b> el valor final se define según tu emprendimiento para que sea <b>accesible</b>. Siempre <b>pago único</b>.
-        </div>
       </div>
     </section>
 
@@ -1382,26 +1273,29 @@
           </div>
         </div>
 
-        <div class="contact">
-          <div class="card form">
+        <div class="grid2">
+          <div class="card" style="padding:18px;">
             <div>
               <h3 style="margin:0; font-family:Sora, Poppins, sans-serif;">Pedir presupuesto (WhatsApp)</h3>
-              <div class="helper">Completá estos datos y te armo una propuesta accesible según tu emprendimiento.</div>
+              <div style="margin-top:8px; color:var(--muted2); font-size:12.5px; line-height:1.5; font-weight:600;">
+                Completá estos datos y te armo una propuesta accesible según tu emprendimiento.
+              </div>
             </div>
 
-            <form id="quoteForm" novalidate>
-              <div class="fields">
+            <form id="quoteForm" novalidate style="margin-top:12px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div>
-                  <label for="fName">Nombre</label>
-                  <input id="fName" name="name" type="text" placeholder="Tu nombre" />
+                  <label for="fName" style="display:block;font-weight:800;font-size:12px;color:var(--muted2);margin-bottom:6px;letter-spacing:.2px;text-transform:uppercase;">Nombre</label>
+                  <input id="fName" name="name" type="text" placeholder="Tu nombre" style="width:100%;padding:12px;border-radius:14px;border:1px solid var(--border1);background:var(--surface1);color:var(--text);font-weight:600;" />
                 </div>
                 <div>
-                  <label for="fBiz">Negocio</label>
-                  <input id="fBiz" name="biz" type="text" placeholder="Nombre del negocio" />
+                  <label for="fBiz" style="display:block;font-weight:800;font-size:12px;color:var(--muted2);margin-bottom:6px;letter-spacing:.2px;text-transform:uppercase;">Negocio</label>
+                  <input id="fBiz" name="biz" type="text" placeholder="Nombre del negocio" style="width:100%;padding:12px;border-radius:14px;border:1px solid var(--border1);background:var(--surface1);color:var(--text);font-weight:600;" />
                 </div>
+
                 <div>
-                  <label for="fNiche">Rubro</label>
-                  <select id="fNiche" name="niche">
+                  <label for="fNiche" style="display:block;font-weight:800;font-size:12px;color:var(--muted2);margin-bottom:6px;letter-spacing:.2px;text-transform:uppercase;">Rubro</label>
+                  <select id="fNiche" name="niche" style="width:100%;padding:12px;border-radius:14px;border:1px solid var(--border1);background:var(--surface1);color:var(--text);font-weight:600;">
                     <option value="">Elegir...</option>
                     <option>Estética / Belleza</option>
                     <option>Barbería / Peluquería</option>
@@ -1413,9 +1307,10 @@
                     <option>Otro</option>
                   </select>
                 </div>
+
                 <div>
-                  <label for="fGoal">Objetivo</label>
-                  <select id="fGoal" name="goal">
+                  <label for="fGoal" style="display:block;font-weight:800;font-size:12px;color:var(--muted2);margin-bottom:6px;letter-spacing:.2px;text-transform:uppercase;">Objetivo</label>
+                  <select id="fGoal" name="goal" style="width:100%;padding:12px;border-radius:14px;border:1px solid var(--border1);background:var(--surface1);color:var(--text);font-weight:600;">
                     <option value="">Elegir...</option>
                     <option>Recibir más consultas por WhatsApp</option>
                     <option>Mostrar trabajos / portfolio</option>
@@ -1425,19 +1320,18 @@
                   </select>
                 </div>
 
-                <div class="full">
-                  <label for="fMsg">Detalles</label>
-                  <textarea id="fMsg" name="msg" placeholder="Contame qué querés mostrar (servicios, fotos, ubicación, redes, etc.)"></textarea>
+                <div style="grid-column:1/-1;">
+                  <label for="fMsg" style="display:block;font-weight:800;font-size:12px;color:var(--muted2);margin-bottom:6px;letter-spacing:.2px;text-transform:uppercase;">Detalles</label>
+                  <textarea id="fMsg" name="msg" placeholder="Contame qué querés mostrar (servicios, fotos, ubicación, redes, etc.)" style="width:100%;min-height:110px;resize:vertical;padding:12px;border-radius:14px;border:1px solid var(--border1);background:var(--surface1);color:var(--text);font-weight:600;"></textarea>
                 </div>
 
-                <div class="full" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+                <div style="grid-column:1/-1; display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
                   <button type="button" class="btn primary" id="btnSendWhatsApp">Enviar por WhatsApp</button>
                   <a class="btn ghost" id="btnDirectWhatsApp" href="#" rel="noopener">WhatsApp directo</a>
                   <a class="btn ghost" href="mailto:ciborg347@gmail.com">Enviar email</a>
-                  <a class="btn ghost" href="https://instagram.com/ciborg347" target="_blank" rel="noopener">@ciborg347</a>
                 </div>
 
-                <div class="full helper">
+                <div style="grid-column:1/-1; margin-top:6px; color:var(--muted2); font-size:12.5px; line-height:1.5; font-weight:600;">
                   Ubicación: <b>Buenos Aires, Argentina</b> • Email: <b>ciborg347@gmail.com</b> • <b>Pago único</b>.
                 </div>
               </div>
@@ -1478,11 +1372,12 @@
         <div class="footer-grid">
           <div>
             <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-              <img id="footerLogo"
-                   src="https://iili.io/fETkPEv.md.png" alt="CIBORG 347"
-                   style="width:76px;height:76px;object-fit:contain;padding:0;background:transparent;border:none;border-radius:22px;box-shadow:none;
-                          transition: transform .18s ease, filter .18s ease;
-                          filter: drop-shadow(0 16px 30px rgba(0,0,0,.26)) drop-shadow(0 0 16px rgba(0,229,255,.14)) drop-shadow(0 0 18px rgba(255,60,255,.10));">
+              <img
+                src="https://iili.io/fETkPEv.md.png"
+                alt="CIBORG 347"
+                style="width:76px;height:76px;object-fit:contain;padding:0;background:transparent;border:none;border-radius:22px;box-shadow:none;
+                       transition: transform .18s ease, filter .18s ease;
+                       filter: drop-shadow(0 16px 30px rgba(0,0,0,.26)) drop-shadow(0 0 16px rgba(0,229,255,.14)) drop-shadow(0 0 18px rgba(255,60,255,.10));">
               <div>
                 <div style="font-family:Sora, Poppins, sans-serif; font-weight:900; letter-spacing:.4px;">CIBORG 347™</div>
                 <div style="color:var(--muted2); font-size:12.5px; font-weight:700;">Landing Pages & Web Designs</div>
@@ -1491,11 +1386,11 @@
             <div class="fine">
               Páginas web profesionales para emprendedores. Diseño moderno, estructura para conversión y contacto directo por WhatsApp. <b>Pago único</b> y planes <b>personalizados</b>.
             </div>
-            <div class="creator">
-              <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener">Creado y diseñado por Ciborg 347</a>
-            </div>
             <div class="fine" style="margin-top:10px;">
               © <span id="year"></span> CIBORG 347™ — Buenos Aires, Argentina
+            </div>
+            <div class="fine" style="margin-top:8px;">
+              Creado y diseñado por <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener" style="text-decoration:underline; text-underline-offset:4px; font-weight:800;">Ciborg 347</a>
             </div>
           </div>
 
@@ -1530,6 +1425,7 @@
     "name": "CIBORG 347",
     "areaServed": "Buenos Aires, Argentina",
     "email": "ciborg347@gmail.com",
+    "sameAs": ["https://instagram.com/ciborg347"],
     "description": "Landing pages y web designs para emprendedores. Diseño moderno, full responsive y enfocado en conversión. Pago único. Planes personalizados y accesibles. Contacto por WhatsApp."
   }
   </script>
@@ -1537,6 +1433,7 @@
   <script>
     (function(){
       const WHATSAPP_PHONE = "5491164499481";
+      const IG_PROFILE = "https://instagram.com/ciborg347";
 
       const defaultMsg = "Hola CIBORG 347, vi algunos de tus trabajos y quisiera pedir presupuesto para una web para mi emprendimiento/marca. ¿Me contás cómo trabajás y me armás un plan accesible? (Pago único)";
       const wa = (text) => `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
@@ -1572,72 +1469,122 @@
         profesionales: "Profesionales"
       };
 
-      const categoryIcons = {
-        all: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 7h7v7H4z" stroke="rgba(0,229,255,.9)" stroke-width="1.7"/>
-          <path d="M13 7h7v7h-7z" stroke="rgba(255,60,255,.9)" stroke-width="1.7"/>
-          <path d="M4 16h7v4H4z" stroke="rgba(185,124,255,.9)" stroke-width="1.7"/>
-          <path d="M13 16h7v4h-7z" stroke="rgba(61,255,183,.9)" stroke-width="1.7"/>
-        </svg>`,
-        estetica: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 21s7-4 7-10V7l-7-4-7 4v4c0 6 7 10 7 10Z" stroke="rgba(255,60,255,.9)" stroke-width="1.7"/>
-          <path d="M9.5 12.2 11.3 14l3.9-4.2" stroke="rgba(0,229,255,.9)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>`,
-        barber: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 7h10v4H7z" stroke="rgba(0,229,255,.9)" stroke-width="1.7"/>
-          <path d="M9 11v9M15 11v9" stroke="rgba(255,60,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-          <path d="M6 20h12" stroke="rgba(185,124,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>`,
-        food: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 3v7M10 3v7M7 7h3" stroke="rgba(0,229,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-          <path d="M14 3v8a2 2 0 0 0 2 2h1v8" stroke="rgba(255,60,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>`,
-        evento: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 8h16v10H4z" stroke="rgba(185,124,255,.9)" stroke-width="1.7"/>
-          <path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="rgba(0,229,255,.9)" stroke-width="1.7"/>
-          <path d="M7 13h10" stroke="rgba(255,60,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>`,
-        radio: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 10h16v8H4z" stroke="rgba(0,229,255,.9)" stroke-width="1.7"/>
-          <path d="M7 14h3" stroke="rgba(255,60,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-          <path d="M14 13a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z" stroke="rgba(185,124,255,.9)" stroke-width="1.7"/>
-          <path d="M6 10l12-4" stroke="rgba(255,255,255,.35)" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>`,
-        refacciones: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M14 7l3 3-7 7H7v-3l7-7Z" stroke="rgba(0,229,255,.9)" stroke-width="1.7" stroke-linejoin="round"/>
-          <path d="M6 21h12" stroke="rgba(255,60,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>`,
-        profesionales: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 7h10v14H7z" stroke="rgba(255,60,255,.9)" stroke-width="1.7"/>
-          <path d="M9 10h6" stroke="rgba(0,229,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-          <path d="M9 13h6" stroke="rgba(185,124,255,.9)" stroke-width="1.7" stroke-linecap="round"/>
-          <path d="M9 16h4" stroke="rgba(61,255,183,.9)" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>`
-      };
-
+      // === OBRAS (SIN CASINO) ===
+      // iconos: ["wa","ig","fb","yt","map","web"] (se muestran arriba)
       const works = [
-        {slug:"adda-nails", category:"estetica", img:"https://iili.io/KPyCnHu.jpg", demo:"https://adda-nails.onrender.com/", short:"Mostrá tu trabajo con un diseño limpio y profesional.", info:"Landing pensada para estudios de belleza que necesitan transmitir prolijidad, estilo y confianza."},
-        {slug:"bg-alisados", category:"estetica", img:"https://iili.io/fkCDDCX.md.jpg", demo:"https://bg-alisados.onrender.com/", short:"Servicio de alisados con presencia pro.", info:"Demo enfocada en estética/belleza: estructura clara, secciones de confianza y CTA directo a WhatsApp."},
-        {slug:"pelsa-pielsana", category:"estetica", img:"https://iili.io/fETkPEv.md.png", demo:"https://pelsa-pielsana.onrender.com/", short:"Diseño limpio para captar consultas.", info:"Web demo para estética/servicios: pensado para que la gente entienda rápido y te escriba por WhatsApp."},
+        {
+          category:"estetica",
+          img:"https://iili.io/KPyCnHu.jpg",
+          link:"https://adda-nails.onrender.com/",
+          short:"Mostrá tu trabajo con un diseño limpio y profesional.",
+          info:"Landing pensada para estudios de belleza que necesitan transmitir prolijidad, estilo y confianza.",
+          icons:["ig","wa"]
+        },
+        {
+          category:"estetica",
+          img:"https://iili.io/fkCDDCX.md.jpg",
+          link:"https://bg-alisados.onrender.com/",
+          short:"Servicio de alisados con presencia pro.",
+          info:"Demo enfocada en estética/belleza: estructura clara, secciones de confianza y CTA directo a WhatsApp.",
+          icons:["wa","ig"]
+        },
+        {
+          category:"estetica",
+          img:"https://iili.io/fETkPEv.md.png",
+          link:"https://pelsa-pielsana.onrender.com/",
+          short:"Diseño limpio para captar consultas.",
+          info:"Web demo para estética/servicios: pensado para que la gente entienda rápido y te escriba por WhatsApp.",
+          icons:["wa","ig"]
+        },
 
-        {slug:"barberia-elbebu", category:"barber", img:"https://iili.io/KPyvEcx.jpg", demo:"https://barberia-elbebu.onrender.com/", short:"Presencia fuerte que posiciona tu barbería como marca.", info:"Estética moderna y masculina que genera autoridad."},
-        {slug:"barber-shop-rodri", category:"barber", img:"https://iili.io/KPyUCn1.jpg", demo:"https://barber-shop-rodri.onrender.com/", short:"Elegancia y estilo en cada detalle.", info:"Diseño orientado a barberías que quieren diferenciarse."},
+        {
+          category:"barber",
+          img:"https://iili.io/KPyvEcx.jpg",
+          link:"https://barberia-elbebu.onrender.com/",
+          short:"Presencia fuerte que posiciona tu barbería como marca.",
+          info:"Estética moderna y masculina que genera autoridad.",
+          icons:["ig","wa"]
+        },
+        {
+          category:"barber",
+          img:"https://iili.io/KPyUCn1.jpg",
+          link:"https://barber-shop-rodri.onrender.com/",
+          short:"Elegancia y estilo en cada detalle.",
+          info:"Diseño orientado a barberías que quieren diferenciarse.",
+          icons:["ig","wa"]
+        },
 
-        {slug:"dulce-juana", category:"food", img:"https://iili.io/fF5pLGf.jpg", demo:"https://dulce-juana.onrender.com/", short:"Imágenes irresistibles que generan ventas.", info:"Landing cálida y visual, perfecta para gastronomía."},
-        {slug:"rose-desayunos", category:"food", img:"https://iili.io/fks2qEN.jpg", demo:"https://rose-desayunos.onrender.com/", short:"Catálogo/combos claros para pedir rápido.", info:"Demo para desayunos y regalos: pensado para que entiendan los combos y te pidan directo por WhatsApp."},
+        {
+          category:"food",
+          img:"https://iili.io/fF5pLGf.jpg",
+          link:"https://dulce-juana.onrender.com/",
+          short:"Imágenes irresistibles que generan ventas.",
+          info:"Landing cálida y visual, perfecta para gastronomía.",
+          icons:["ig","wa"]
+        },
+        {
+          category:"food",
+          img:"https://iili.io/fks2qEN.jpg",
+          link:"https://rose-desayunos.onrender.com/",
+          short:"Catálogo/combos claros para pedir rápido.",
+          info:"Demo para desayunos y regalos: pensado para que entiendan los combos y te pidan directo por WhatsApp.",
+          icons:["ig","wa"]
+        },
 
-        {slug:"tio-sergio", category:"evento", img:"https://iili.io/f9a9K5Q.jpg", demo:"https://tio-sergio.onrender.com", short:"Energía y ambiente en un diseño impactante.", info:"Ideal para salones y bailables."},
-        {slug:"web-mmg-oficial", category:"evento", img:"https://iili.io/faZQ0Ff.jpg", demo:"https://web-mmg-oficial.onrender.com", short:"Showcase potente para eventos y artistas.", info:"Landing con estética pro para presentar el evento/producción, mostrar identidad y llevar tráfico directo a contacto/redes."},
+        {
+          category:"evento",
+          img:"https://iili.io/f9a9K5Q.jpg",
+          link:"https://tio-sergio.onrender.com",
+          short:"Energía y ambiente en un diseño impactante.",
+          info:"Ideal para salones y bailables.",
+          icons:["ig","wa","fb"]
+        },
+        {
+          category:"evento",
+          img:"https://iili.io/faZQ0Ff.jpg",
+          link:"https://web-mmg-oficial.onrender.com",
+          short:"Showcase potente para eventos y artistas.",
+          info:"Landing con estética pro para presentar el evento/producción, mostrar identidad y llevar tráfico directo a contacto/redes.",
+          icons:["ig","yt","wa"]
+        },
 
-        {slug:"radio-imagen", category:"radio", img:"https://iili.io/f9an4yX.jpg", demo:"https://radioimagen.onrender.com", short:"Tu radio con presencia moderna.", info:"Streaming integrado y visual profesional."},
-        {slug:"radio-cannafest", category:"radio", img:"https://iili.io/farGiml.jpg", demo:"https://radiocannafest.onrender.com", short:"Radio Cannafest con identidad propia.", info:"Landing moderna para radio temática con estética fuerte y presencia profesional."},
+        {
+          category:"radio",
+          img:"https://iili.io/f9an4yX.jpg",
+          link:"https://radioimagen.onrender.com",
+          short:"Tu radio con presencia moderna.",
+          info:"Streaming integrado y visual profesional.",
+          icons:["ig","wa","web"]
+        },
+        {
+          category:"radio",
+          img:"https://iili.io/farGiml.jpg",
+          link:"https://radiocannafest.onrender.com",
+          short:"Radio Cannafest con identidad propia.",
+          info:"Landing moderna para radio temática con estética fuerte y presencia profesional.",
+          icons:["ig","wa","web"]
+        },
 
-        {slug:"jyl-refacciones", category:"refacciones", img:"https://iili.io/farX3hl.jpg", demo:"https://jyl-refacciones.onrender.com/", short:"Refacciones y construcciones para captar presupuestos.", info:"Landing para refacciones y construcciones, ideal para mostrar trabajos, servicios y captar presupuestos por WhatsApp."},
+        {
+          category:"refacciones",
+          img:"https://iili.io/farX3hl.jpg",
+          link:"https://jyl-refacciones.onrender.com/",
+          short:"Refacciones y construcciones para captar presupuestos.",
+          info:"Landing para refacciones y construcciones, ideal para mostrar trabajos, servicios y captar presupuestos por WhatsApp.",
+          icons:["wa","ig","map"]
+        },
 
-        {slug:"contadora-silvia-franco", category:"profesionales", img:"https://iili.io/feOJ9LJ.md.jpg", demo:"https://contadora-silvia-franco.onrender.com/", short:"Web sobria y clara para servicios profesionales.", info:"Demo pensada para contadores/servicios: ordena info, transmite confianza y convierte a WhatsApp."}
+        {
+          category:"profesionales",
+          img:"https://iili.io/feOJ9LJ.md.jpg",
+          link:"https://contadora-silvia-franco.onrender.com/",
+          short:"Web sobria y clara para servicios profesionales.",
+          info:"Demo pensada para contadores/servicios: ordena info, transmite confianza y convierte a WhatsApp.",
+          icons:["wa","ig"]
+        }
       ];
 
-      function titleFromDemo(url){
+      function titleFromLink(url){
         try{
           const u = new URL(url);
           const host = u.hostname.replace("www.","");
@@ -1651,7 +1598,13 @@
         }
       }
 
-      const featuredSlugs = ["adda-nails", "radio-cannafest", "jyl-refacciones", "rose-desayunos"];
+      // Destacados (sin casino)
+      const featuredOrder = [
+        "https://adda-nails.onrender.com/",
+        "https://radiocannafest.onrender.com",
+        "https://jyl-refacciones.onrender.com/",
+        "https://rose-desayunos.onrender.com/"
+      ];
 
       const normalize = (s) => (s || "").toString().toLowerCase().trim();
 
@@ -1674,50 +1627,85 @@
       function renderChips(){
         chipsEl.innerHTML = "";
         chipKeys.forEach(key => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "chip" + (activeCat === key ? " active" : "");
+          const c = document.createElement("button");
+          c.type = "button";
+          c.className = "chip" + (activeCat === key ? " active" : "");
           const label = categoryLabels[key] || key;
           const n = key === "all" ? works.length : (counts[key] || 0);
-          const icon = categoryIcons[key] || "";
-          btn.innerHTML = `${icon}<span>${label} (${n})</span>`;
-          btn.addEventListener("click", () => {
+          c.textContent = `${label} (${n})`;
+          c.addEventListener("click", () => {
             activeCat = key;
             renderChips();
             renderWorks();
           });
-          chipsEl.appendChild(btn);
+          chipsEl.appendChild(c);
         });
       }
 
       function getFeatured(){
-        const map = new Map(works.map(w => [w.slug, w]));
-        return featuredSlugs.map(s => map.get(s)).filter(Boolean);
+        const map = new Map(works.map(w => [w.link, w]));
+        const featured = [];
+        featuredOrder.forEach(l => { if(map.has(l)) featured.push(map.get(l)); });
+        return featured;
       }
 
       function passesFilters(w){
         if(activeCat !== "all" && w.category !== activeCat) return false;
         if(searchTerm){
           const hay = normalize([
-            w.category,
-            categoryLabels[w.category],
-            w.slug,
-            titleFromDemo(w.demo),
-            w.short,
-            w.info,
-            w.demo
+            w.category, categoryLabels[w.category], titleFromLink(w.link), w.short, w.info, w.link
           ].join(" "));
           if(!hay.includes(searchTerm)) return false;
         }
         return true;
       }
 
-      function fichaHref(slug){
-        return `./e/${slug}/`;
+      function iconSvg(name){
+        // simples y livianos (sin librerías)
+        if(name === "wa"){
+          return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20 11.6a7.9 7.9 0 0 1-11.7 6.9L4 20l1.6-4.2A7.9 7.9 0 1 1 20 11.6Z" stroke="rgba(37,211,102,.95)" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M10.2 8.8c.2-.5.5-.6.9-.6h.6c.2 0 .5.1.6.4l.6 1.5c.1.3.1.6-.1.8l-.4.5c-.1.2-.1.4 0 .6.6 1.1 1.6 2 2.7 2.6.2.1.4.1.6 0l.5-.4c.2-.2.5-.2.8-.1l1.5.6c.3.1.4.4.4.6v.6c0 .4-.1.7-.6.9-1 .5-2.8.4-5.1-1-2.3-1.4-3.6-3.5-3.9-4.7-.2-.8-.2-1.4.1-1.8Z" fill="rgba(37,211,102,.20)"/>
+          </svg>`;
+        }
+        if(name === "ig"){
+          return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z" stroke="rgba(255,60,255,.92)" stroke-width="1.7"/>
+            <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="rgba(0,229,255,.90)" stroke-width="1.7"/>
+            <path d="M17.5 6.5h.01" stroke="rgba(255,255,255,.75)" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>`;
+        }
+        if(name === "fb"){
+          return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.2l.8-3H13V9c0-.6.4-1 1-1Z" fill="rgba(0,229,255,.22)"/>
+            <path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.2l.8-3H13V9c0-.6.4-1 1-1Z" stroke="rgba(0,229,255,.75)" stroke-width="1.2" stroke-linejoin="round"/>
+          </svg>`;
+        }
+        if(name === "yt"){
+          return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12s0-3.3-.4-4.8a2.8 2.8 0 0 0-2-2C16.7 4.7 12 4.7 12 4.7s-4.7 0-6.6.5a2.8 2.8 0 0 0-2 2C3 8.7 3 12 3 12s0 3.3.4 4.8a2.8 2.8 0 0 0 2 2c1.9.5 6.6.5 6.6.5s4.7 0 6.6-.5a2.8 2.8 0 0 0 2-2c.4-1.5.4-4.8.4-4.8Z" stroke="rgba(255,60,255,.85)" stroke-width="1.4" fill="rgba(255,60,255,.14)"/>
+            <path d="M10 9.5v5l5-2.5-5-2.5Z" fill="rgba(0,229,255,.75)"/>
+          </svg>`;
+        }
+        if(name === "map"){
+          return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 22s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11Z" stroke="rgba(61,255,183,.85)" stroke-width="1.6" stroke-linejoin="round" fill="rgba(61,255,183,.12)"/>
+            <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="rgba(255,255,255,.70)" stroke-width="1.4"/>
+          </svg>`;
+        }
+        if(name === "web"){
+          return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="rgba(185,124,255,.85)" stroke-width="1.6"/>
+            <path d="M3 12h18" stroke="rgba(255,255,255,.35)" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M12 3c2.5 2.7 4 5.8 4 9s-1.5 6.3-4 9c-2.5-2.7-4-5.8-4-9s1.5-6.3 4-9Z" stroke="rgba(0,229,255,.65)" stroke-width="1.4"/>
+          </svg>`;
+        }
+        return "";
       }
 
       function renderWorks(){
-        let list = (showAll ? works.slice() : getFeatured()).filter(passesFilters);
+        let list = showAll ? works.slice() : getFeatured();
+        list = list.filter(passesFilters);
 
         gridEl.innerHTML = "";
         if(list.length === 0){
@@ -1726,49 +1714,32 @@
         }
 
         list.forEach((w) => {
-          const title = titleFromDemo(w.demo);
-          const tag = categoryLabels[w.category] || w.category;
-          const ficha = fichaHref(w.slug);
-
           const card = document.createElement("article");
           card.className = "work";
+          const title = titleFromLink(w.link);
+          const tag = categoryLabels[w.category] || w.category;
+
+          const icons = (w.icons || []).slice(0,6).map(n => `<span class="bicon" title="${n}">${iconSvg(n)}</span>`).join("");
 
           card.innerHTML = `
             <div class="work-inner">
               <div class="thumb">
+                <div class="badge-icons">${icons}</div>
                 <img src="${w.img}" alt="${title}" loading="lazy" />
               </div>
               <div class="meta">
                 <div class="topline">
                   <span class="tag">${tag}</span>
-                  <span style="color:var(--muted2); font-weight:900; font-size:12px;">Ficha</span>
+                  <span style="color:var(--muted2); font-weight:900; font-size:12px;">Abrir</span>
                 </div>
                 <div class="title">${title}</div>
                 <div class="short">${w.short}</div>
-                <div class="actions">
-                  <a class="btn primary sm" href="${ficha}" target="_blank" rel="noopener">Ver ficha</a>
-                  <a class="btn ghost sm" href="${w.demo}" target="_blank" rel="noopener">Abrir demo</a>
-                  <button class="btn ghost sm" type="button" data-copy="${ficha}">Copiar ficha</button>
-                </div>
               </div>
             </div>
           `;
 
-          const copyBtn = card.querySelector('button[data-copy]');
-          copyBtn.addEventListener("click", async (e) => {
-            e.preventDefault();
-            const val = copyBtn.getAttribute("data-copy") || "";
-            try{
-              const abs = new URL(val, window.location.href).href;
-              await navigator.clipboard.writeText(abs);
-              copyBtn.textContent = "Copiada";
-              setTimeout(() => copyBtn.textContent = "Copiar ficha", 1200);
-            }catch(_){
-              copyBtn.textContent = "No se pudo";
-              setTimeout(() => copyBtn.textContent = "Copiar ficha", 1200);
-            }
-          });
-
+          // ABRIR EN OTRA PESTAÑA (como pediste)
+          card.addEventListener("click", () => window.open(w.link, "_blank", "noopener"));
           gridEl.appendChild(card);
         });
 
@@ -1785,11 +1756,59 @@
         renderWorks();
       });
 
+      // Chips
+      const chipKeys = ["all", "estetica", "barber", "food", "evento", "radio", "refacciones", "profesionales"];
+      function renderChips(){
+        chipsEl.innerHTML = "";
+        chipKeys.forEach(key => {
+          const c = document.createElement("button");
+          c.type = "button";
+          c.className = "chip" + (activeCat === key ? " active" : "");
+          const label = categoryLabels[key] || key;
+          const n = key === "all" ? works.length : (counts[key] || 0);
+          c.textContent = `${label} (${n})`;
+          c.addEventListener("click", () => {
+            activeCat = key;
+            renderChips();
+            renderWorks();
+          });
+          chipsEl.appendChild(c);
+        });
+      }
+
+      function getFeatured(){
+        const map = new Map(works.map(w => [w.link, w]));
+        const featured = [];
+        featuredOrder.forEach(l => { if(map.has(l)) featured.push(map.get(l)); });
+        return featured;
+      }
+
+      // WhatsApp: que termine arriba del footer
+      const waFloat = document.getElementById("waFloat");
+      const footer = document.getElementById("siteFooter");
+      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+      function dockWhatsApp(){
+        if(!waFloat || !footer) return;
+        const base = 16;
+        const safe = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--waSafe')) || base;
+        const footerRect = footer.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const overlap = (vh - footerRect.top);
+        const extra = overlap > 0 ? overlap + 12 : 0;
+        const newBottom = safe + extra;
+        waFloat.style.bottom = `calc(${clamp(newBottom, safe, vh * 0.55)}px + env(safe-area-inset-bottom))`;
+      }
+      window.addEventListener("scroll", dockWhatsApp, { passive:true });
+      window.addEventListener("resize", dockWhatsApp);
+      dockWhatsApp();
+
+      // Formulario a WhatsApp
       const btnSend = document.getElementById("btnSendWhatsApp");
       btnSend.addEventListener("click", () => {
         const name = document.getElementById("fName").value.trim();
         const biz = document.getElementById("fBiz").value.trim();
         const niche = document.getElementById("fNiche").value.trim();
+        const goal = document.getElementById("fGoal").value.trim();
         const msg = document.getElementById("fMsg").value.trim();
 
         const parts = [];
@@ -1797,50 +1816,12 @@
         if(name) parts.push(`Nombre: ${name}`);
         if(biz) parts.push(`Negocio: ${biz}`);
         if(niche) parts.push(`Rubro: ${niche}`);
+        if(goal) parts.push(`Objetivo: ${goal}`);
         if(msg) parts.push(`Detalles: ${msg}`);
         parts.push("¿Me armás un plan accesible?");
 
-        window.open(wa(parts.join("\n")), "_blank");
+        window.open(wa(parts.join("\n")), "_blank", "noopener");
       });
-
-      const footerLogo = document.getElementById("footerLogo");
-      if(footerLogo){
-        footerLogo.addEventListener("mouseenter", () => {
-          footerLogo.style.transform = "translateY(-1px) scale(1.04)";
-          footerLogo.style.filter =
-            "drop-shadow(0 20px 38px rgba(0,0,0,.30)) drop-shadow(0 0 22px rgba(0,229,255,.26)) drop-shadow(0 0 24px rgba(255,60,255,.18)) drop-shadow(0 0 18px rgba(185,124,255,.12))";
-        });
-        footerLogo.addEventListener("mouseleave", () => {
-          footerLogo.style.transform = "";
-          footerLogo.style.filter =
-            "drop-shadow(0 16px 30px rgba(0,0,0,.26)) drop-shadow(0 0 16px rgba(0,229,255,.14)) drop-shadow(0 0 18px rgba(255,60,255,.10))";
-        });
-      }
-
-      const waFloat = document.getElementById("waFloat");
-      const footer = document.getElementById("siteFooter");
-
-      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-      function dockWhatsApp(){
-        if(!waFloat || !footer) return;
-
-        const base = 16;
-        const safe = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--waSafe')) || base;
-
-        const footerRect = footer.getBoundingClientRect();
-        const vh = window.innerHeight;
-
-        const overlap = (vh - footerRect.top);
-        const extra = overlap > 0 ? overlap + 12 : 0;
-        const newBottom = safe + extra;
-
-        waFloat.style.bottom = `calc(${clamp(newBottom, safe, vh * 0.55)}px + env(safe-area-inset-bottom))`;
-      }
-
-      window.addEventListener("scroll", dockWhatsApp, { passive:true });
-      window.addEventListener("resize", dockWhatsApp);
-      dockWhatsApp();
 
       renderChips();
       renderWorks();
