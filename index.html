@@ -1591,7 +1591,6 @@
                     <option>Eventos / Artistas</option>
                     <option>Radio / Streaming</option>
                     <option>Refacciones / Construcción</option>
-                    <option>Gaming / Promos</option>
                     <option>Otro</option>
                   </select>
                 </div>
@@ -1893,7 +1892,12 @@
       }
 
       function renderWorks(){
-        let list = showAll ? works.slice() : getFeatured();
+        // FIX:
+        // - Destacados SOLO cuando: showAll = false, categoría = "all" y no hay búsqueda.
+        // - Si elegís categoría o buscás, se usa SIEMPRE la lista completa.
+        const useAllBecauseFiltered = (activeCat !== "all") || !!searchTerm;
+        let list = (showAll || useAllBecauseFiltered) ? works.slice() : getFeatured();
+
         list = list.filter(passesFilters);
 
         gridEl.innerHTML = "";
